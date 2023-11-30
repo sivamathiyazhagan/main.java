@@ -1,0 +1,35 @@
+package j12;
+
+class InvalidLocationError extends Exception {
+    public InvalidLocationError(String message) {
+        super(message);
+    }}
+class InvalidAgeError extends Exception {
+    public InvalidAgeError(String message) {
+        super(message);
+    }}
+public class LoanEligibilityChecker {
+    public static void checkEligibility(String location, int age) throws InvalidLocationError, InvalidAgeError {
+        if (!isValidLocation(location)) {
+            throw new InvalidLocationError("Invalid location. Eligible locations are Chennai, Mumbai, Delhi, or Kolkata.");
+        }  
+        if (age < 23) {
+            throw new InvalidAgeError("Invalid age. Age should be minimum 23 for loan eligibility.");
+        }
+        System.out.println("Loan Eligible!");
+    }
+    private static boolean isValidLocation(String location) {
+        return location.equalsIgnoreCase("Chennai") ||
+               location.equalsIgnoreCase("Mumbai") ||
+               location.equalsIgnoreCase("Delhi")||
+               location.equalsIgnoreCase("Kolkata");
+    }
+    public static void main(String[] args) {
+        try {
+            String location = "Chennai";
+            int age = 23;
+            checkEligibility(location, age);
+        } catch (InvalidLocationError | InvalidAgeError e) {
+            System.out.println("Error: " + e.getMessage());
+        }}}
+
